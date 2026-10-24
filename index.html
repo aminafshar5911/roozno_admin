@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101114"><title>مدیریت روزنو</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar"><a class="brand" href="#"><span class="brand-mark">ر</span><span><b>روزنو</b><small>پنل مدیریت مستقل</small></span></a><div class="top-actions"><span id="adminIdentity" class="identity">وارد نشده‌اید</span><button id="logoutBtn" class="btn ghost hidden">خروج</button></div></header>
+    <main>
+      <section id="loginView" class="login-layout"><div class="intro"><span class="eyebrow">ROOZNO CONTROL CENTER</span><h1>مدیریت، با دقت.</h1><p>پنل جداگانه برای مدیریت کاربران، امتیازها و هشدارهای امنیتی روزنو.</p><div class="secure-note"><span>◆</span><div><b>دسترسی محدود</b><small>فقط حساب مجاز مدیر می‌تواند عملیات مدیریتی انجام دهد.</small></div></div></div><div class="login-card"><div class="lock-icon">⌑</div><h2>ورود مدیر</h2><p>برای ادامه با حساب گوگل مجاز وارد شوید.</p><button id="loginBtn" class="btn primary full">ادامه با Google <span>↗</span></button><p id="loginStatus" class="status" role="status"></p><small class="muted">صرفاً مخفی‌بودن این صفحه امنیت ایجاد نمی‌کند؛ مجوزها در سمت سرور بررسی می‌شوند.</small></div></section>
+      <section id="adminView" class="hidden">
+        <div class="welcome"><div><span class="eyebrow">ADMIN WORKSPACE</span><h1>مرکز کنترل <span>روزنو</span></h1><p>عملیات مدیریتی ثبت می‌شوند؛ قبل از هر اقدام، شناسه و دلیل را بررسی کنید.</p></div><div class="live-chip"><i></i> اتصال امن</div></div>
+        <div class="stats-grid"><article class="stat-card"><span>کاربران بارگذاری‌شده</span><strong id="userCount">—</strong><small>در فهرست فعلی</small></article><article class="stat-card"><span>هشدارهای باز</span><strong id="alertCount">—</strong><small>نیازمند بررسی</small></article><article class="stat-card"><span>عملیات ثبت‌شده</span><strong id="auditCount">—</strong><small>در گزارش مدیریتی</small></article></div>
+        <nav class="tabs" aria-label="بخش‌های مدیریت"><button class="tab active" data-tab="users">کاربران</button><button class="tab" data-tab="alerts">هشدارها</button><button class="tab" data-tab="audit">گزارش فعالیت</button></nav>
+        <section id="usersPanel" class="panel"><div class="panel-head"><div><h2>مدیریت کاربران</h2><p>جست‌وجو با نام، ایمیل یا UUID</p></div><button id="refreshUsers" class="btn ghost">↻ تازه‌سازی</button></div><div class="search-row"><input id="userSearch" type="search" placeholder="جست‌وجوی کاربر…" autocomplete="off"><span id="userSearchCount" class="muted"></span></div><div id="usersList" class="table-wrap"><div class="empty">برای بارگذاری کاربران، پنل را تازه‌سازی کنید.</div></div></section>
+        <section id="alertsPanel" class="panel hidden"><div class="panel-head"><div><h2>هشدارهای امنیتی</h2><p>بررسی و ثبت نتیجهٔ رسیدگی</p></div><button id="refreshAlerts" class="btn ghost">↻ تازه‌سازی</button></div><div id="alertsList" class="table-wrap"><div class="empty">در حال آماده‌سازی…</div></div></section>
+        <section id="auditPanel" class="panel hidden"><div class="panel-head"><div><h2>گزارش فعالیت مدیر</h2><p>سابقهٔ اقدامات مدیریتی</p></div><button id="refreshAudit" class="btn ghost">↻ تازه‌سازی</button></div><div id="auditList" class="table-wrap"><div class="empty">در حال آماده‌سازی…</div></div></section>
+      </section>
+      <div id="globalStatus" class="global-status" role="status" aria-live="polite"></div>
+    </main><footer><span>ROOZNO / ADMIN</span><span>پنل مستقل · دسترسی کنترل‌شده</span></footer>
+  </div>
+  <dialog id="userDialog"><form method="dialog" id="userActionForm"><button class="dialog-close" aria-label="بستن">×</button><span class="eyebrow">USER ACTION</span><h2 id="dialogTitle">مدیریت کاربر</h2><p id="dialogUser" class="dialog-user"></p><label for="actionReason">دلیل اقدام <em>الزامی</em></label><textarea id="actionReason" minlength="4" maxlength="500" required placeholder="دلیل روشن و قابل بررسی بنویسید…"></textarea><div id="amountGroup" class="hidden"><label for="xpAmount">مقدار تغییر XP <em>عدد صحیح، غیرصفر</em></label><input id="xpAmount" type="number" min="-10000" max="10000" step="1" value="10"></div><p class="warning-text" id="dialogWarning"></p><div class="dialog-actions"><button type="button" id="cancelAction" class="btn ghost">انصراف</button><button type="button" id="confirmAction" class="btn primary">تأیید اقدام</button></div></form></dialog>
+</body></html>
