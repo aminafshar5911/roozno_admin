@@ -17,7 +17,7 @@
   async function api(action, payload={}) {
     const {data:{session},error:sessionError}=await client.auth.getSession();
     if(sessionError||!session?.access_token) throw new Error('نشست ورود معتبر نیست؛ دوباره وارد شوید.');
-    const response=await fetch(`${SUPABASE_URL}/functions/v1/roozno-admin`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`,'apikey':SUPABASE_PUBLISHABLE_KEY},body:JSON.stringify({action,...payload})});
+    const response=await fetch(`${SUPABASE_URL}/functions/v1/roozno_admin`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`,'apikey':SUPABASE_PUBLISHABLE_KEY},body:JSON.stringify({action,...payload})});
     const body=await response.json().catch(()=>({error:'پاسخ سرور قابل خواندن نیست.'}));
     if(!response.ok||body.error) throw new Error(body.error||'درخواست ناموفق بود.');
     return body;
